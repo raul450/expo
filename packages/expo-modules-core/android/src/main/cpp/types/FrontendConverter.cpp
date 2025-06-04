@@ -332,7 +332,6 @@ jobject PrimitiveArrayFrontendConverter::convert(
   ) -> jobject {
     return createPrimitiveArray(rt, env, jsArray, arrayConstructor, setRegion);
   };
-
   if (parameterType == CppType::INT) {
     return _createPrimitiveArray(
       &JNIEnv::NewIntArray,

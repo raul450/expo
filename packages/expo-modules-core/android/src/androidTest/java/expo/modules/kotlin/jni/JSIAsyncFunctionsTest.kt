@@ -221,9 +221,11 @@ class JSIAsyncFunctionsTest {
     Truth.assertThat(e3).isEqualTo(3)
   }
 
+  // Object[] to String[]
+  // Integer[]
   @Test
   fun string_array_should_be_convertible() = withSingleModule({
-    AsyncFunction("stringArray") { a: Array<String> -> a }
+    AsyncFunction("stringArray") { a: Array<String?> -> a }
   }) {
     val array = callAsync("stringArray", "['a', 'b', 'c']").getArray()
     Truth.assertThat(array.size).isEqualTo(3)

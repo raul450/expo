@@ -1,11 +1,13 @@
 package expo.modules.devlauncher.launcher
 
+import android.app.Activity
 import android.os.Bundle
 import android.os.Handler
 import android.view.KeyEvent
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
@@ -19,11 +21,12 @@ import expo.modules.devlauncher.koin.DevLauncherKoinComponent
 import expo.modules.devlauncher.splashscreen.DevLauncherSplashScreen
 import expo.modules.devlauncher.splashscreen.DevLauncherSplashScreenProvider
 import expo.modules.devmenu.DevMenuManager
+import expo.modules.devmenu.compose.BindingView
 import org.koin.core.component.inject
 
 const val SEARCH_FOR_ROOT_VIEW_INTERVAL = 20L
 
-class DevLauncherActivity : ReactActivity(), ReactInstanceEventListener, DevLauncherKoinComponent {
+class DevLauncherActivity : AppCompatActivity(), ReactInstanceEventListener, DevLauncherKoinComponent {
   private val controller: DevLauncherControllerInterface by inject()
   private var devMenuManager: DevMenuManager = DevMenuManager
   private var splashScreen: DevLauncherSplashScreen? = null
@@ -31,20 +34,20 @@ class DevLauncherActivity : ReactActivity(), ReactInstanceEventListener, DevLaun
   private lateinit var contentView: ViewGroup
   private val handler = Handler()
 
-  override fun getMainComponentName() = "main"
-
-  override fun createReactActivityDelegate(): ReactActivityDelegate {
-    return object : DefaultReactActivityDelegate(this, mainComponentName, fabricEnabled) {
-
-      override fun getReactNativeHost() = controller.devClientHost.reactNativeHost
-
-      override fun getReactHost() = controller.devClientHost.reactHost
-
-      override fun getLaunchOptions() = Bundle().apply {
-        putBoolean("isSimulator", isSimulator)
-      }
-    }
-  }
+//  override fun getMainComponentName() = "main"
+//
+//  override fun createReactActivityDelegate(): ReactActivityDelegate {
+//    return object : DefaultReactActivityDelegate(this, mainComponentName, fabricEnabled) {
+//
+//      override fun getReactNativeHost() = controller.devClientHost.reactNativeHost
+//
+//      override fun getReactHost() = controller.devClientHost.reactHost
+//
+//      override fun getLaunchOptions() = Bundle().apply {
+//        putBoolean("isSimulator", isSimulator)
+//      }
+//    }
+//  }
 
   override fun onStart() {
     overridePendingTransition(0, 0)
@@ -56,10 +59,13 @@ class DevLauncherActivity : ReactActivity(), ReactInstanceEventListener, DevLaun
     WindowCompat.setDecorFitsSystemWindows(window, false)
     super.onCreate(savedInstanceState)
 
-    contentView = findViewById(android.R.id.content) ?: return
-    splashScreen = DevLauncherSplashScreenProvider()
-      .attachSplashScreenViewAsync(this)
-    searchForRootView()
+    setContentView(
+      BindingView(this)
+    )
+//    contentView = findViewById(android.R.id.content) ?: return
+//    splashScreen = DevLauncherSplashScreenProvider()
+//      .attachSplashScreenViewAsync(this)
+//    searchForRootView()
   }
 
   override fun onPostCreate(savedInstanceState: Bundle?) {
