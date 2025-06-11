@@ -8,7 +8,23 @@
 
 ### 🐛 Bug fixes
 
+- [Android] Fix animation resuming by casting image to GifDrawable
+
 ### 💡 Others
+
+## 2.3.0 - 2025-06-11
+
+### 🛠 Breaking changes
+
+- [iOS] `useAppleWebpCodec` has been moved from the source object to the component's prop to make it usable with the local assets. ([#37300](https://github.com/expo/expo/pull/37300) by [@tsapeta](https://github.com/tsapeta))
+
+### 🐛 Bug fixes
+
+- [iOS] Fix blurry images when using `tintColor` by scaling `imageThumbnailPixelSize` with screen density. ([#37235](https://github.com/expo/expo/pull/37235) by [@hirbod](https://github.com/hirbod))
+
+## 2.2.1 - 2025-06-10
+
+_This version does not introduce any user-facing changes._
 
 ## 2.3.0 - 2025-06-11
 
